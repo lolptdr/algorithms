@@ -71,7 +71,13 @@ module ArrayUtil
   			return middle.to_i
   		end
   	end
+
+    # Alternative solution:
+    # return nil if array.size == 0
+    # array.count.even? ? array.inject(:+).to_f/array.count : array[array.count/2]   
   end
+
+
 
 
   def self.sum_arrays(array1, array2)
