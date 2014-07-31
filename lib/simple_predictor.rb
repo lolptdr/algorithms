@@ -1,4 +1,5 @@
 require_relative 'predictor'
+require 'pry-byebug'
 
 # This is a simple predictor that isn't very smart, but it's not too shabby. It
 # gets 40% of its predictions correct, which is better than random! But I bet
@@ -17,14 +18,15 @@ class SimplePredictor < Predictor
     # {
     #   philosophy: {
     #     words: 1000,
-    #     books: 10,
+    #     books: 10
     #   },
     #   archeology: {
     #     words: 2000,
-    #     books: 5,
+    #     books: 5
     #   }
     # }
     @data = {}
+    @everything = {}
 
     @all_books.each do |category, books|
       @data[category] = {
@@ -32,10 +34,19 @@ class SimplePredictor < Predictor
         books: 0
       }
       books.each do |filename, tokens|
+        # puts tokens.count
+        # puts filename
+        # binding.pry
         @data[category][:words] += tokens.count
         @data[category][:books] += 1
+        @everything[filename] = tokens.count
+        # @everything[pareto] = {
+        #   tokens.map {|x| x.length}
+        # }
+        binding.pry
       end
     end
+    # binding.pry
   end
 
   # Public: Predicts category.
@@ -63,7 +74,7 @@ class SimplePredictor < Predictor
         minimum_distance = difference
       end
     end
-
+# binding.pry
     minimum_category
   end
 end
